@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragment.WritePostFragment"
+    android:orientation="vertical"
+    >
+    <Button
+        android:text="사진 가져오기"
+        android:id="@+id/getImageBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <ImageView
+        android:src="@drawable/tmpimage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+
+<EditText
+    android:hint="오늘의 한마디를 정리하세요"
+    android:maxLines="8"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+<Button
+    android:text="입력완료"
+    android:id="@+id/postingBtn"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+</LinearLayout>
