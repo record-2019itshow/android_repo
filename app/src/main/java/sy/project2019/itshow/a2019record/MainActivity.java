@@ -1,5 +1,6 @@
 package sy.project2019.itshow.a2019record;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import sy.project2019.itshow.a2019record.Activity.WriteRecordActivity;
 import sy.project2019.itshow.a2019record.Fragment.HashtagFragment;
 import sy.project2019.itshow.a2019record.Fragment.HomeFragment;
 import sy.project2019.itshow.a2019record.Fragment.MonthlyViewFragment;
@@ -25,13 +27,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Fragment homefrag;
     Fragment writefrag;
+    Intent intent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         homefrag = new HomeFragment();
@@ -45,14 +48,12 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.getMenu().getItem(0).setChecked(true);
         navigationView.setNavigationItemSelectedListener(this);
 
         //프래그먼트 시작
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
         fragmentTransaction.add(R.id.FrameBase, homefrag).commit();
-
     }
 
     @Override
@@ -74,12 +75,9 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -94,10 +92,9 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (id == R.id.nav_home) {
-            transaction.replace(R.id.FrameBase, homefrag).commit();
-        } else if (id == R.id.nav_write) {
-            transaction.replace(R.id.FrameBase, writefrag).commit();
+       if (id == R.id.nav_write) {
+            intent = new Intent(MainActivity.this, WriteRecordActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_hash) {
             transaction.replace(R.id.FrameBase, new HashtagFragment()).commit();
         } else if (id == R.id.nav_monthView) {

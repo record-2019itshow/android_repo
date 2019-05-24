@@ -18,15 +18,15 @@
         android:layout_height="200dp" />
 
 
-<EditText
-    android:hint="오늘의 한마디를 정리하세요"
-    android:maxLines="8"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-<Button
-    android:text="입력완료"
-    android:id="@+id/postingBtn"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
+    <EditText
+        android:hint="오늘의 한마디를 정리하세요"
+        android:maxLines="8"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:text="입력완료"
+        android:id="@+id/postingBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

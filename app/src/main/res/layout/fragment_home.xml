@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
     <TextView
+        android:id="@+id/record_title"
         android:textColor="#000"
         android:textSize="18sp"
         android:layout_width="wrap_content"
@@ -12,16 +13,41 @@
         android:text="@string/record_title" />
 
     <TextView
+        android:layout_below="@+id/record_title"
+        android:id="@+id/record_info"
         android:text="@string/record_info"
         android:textColor="#000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-
+    <LinearLayout
+        android:visibility="gone"
+        android:layout_below="@+id/record_info"
+        android:id="@+id/empty_grid_add"
+        android:background="@color/mainColor"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="130dp"
+        android:layout_height="130dp">
+        <TextView
+            android:textColor="@color/blackCommon"
+            android:text="+"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textColor="@color/blackCommon"
+            android:text="Add a Record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <GridView
+        android:visibility="gone"
+        android:layout_below="@+id/record_title"
+        android:padding="5dp"
+        android:background="@color/whiteCommon"
         android:layout_marginTop="20dp"
         android:id="@+id/main_grid_layout"
         android:numColumns="3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+</RelativeLayout>
