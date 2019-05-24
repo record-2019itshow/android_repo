@@ -9,15 +9,15 @@ import android.widget.TextView;
 
 import sy.project2019.itshow.a2019record.R;
 
-public class HashtagActivity extends AppCompatActivity {
-
+public class MonthlyViewActivity extends AppCompatActivity {
     ImageView Backbtn;
     TextView toolbarTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_hashtag);
+        setContentView(R.layout.activity_monthly_view);
+
         //액션바 설정 코드
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.activities_actionbar_layout);
@@ -25,7 +25,7 @@ public class HashtagActivity extends AppCompatActivity {
         toolbarTitle = findViewById(R.id.toolbarTitle);
         Backbtn = findViewById(R.id.backBtn);
 
-        toolbarTitle.setText(R.string.hashtagTitle);
+        toolbarTitle.setText(R.string.monthlyTitle);
         Backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

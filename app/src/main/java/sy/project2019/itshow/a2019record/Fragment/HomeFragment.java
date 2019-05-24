@@ -1,5 +1,6 @@
 package sy.project2019.itshow.a2019record.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
+import sy.project2019.itshow.a2019record.Activity.WriteRecordActivity;
 import sy.project2019.itshow.a2019record.Adapter.gridAdapter;
 import sy.project2019.itshow.a2019record.Model.RecordModel;
 import sy.project2019.itshow.a2019record.R;
@@ -51,9 +53,8 @@ public class HomeFragment extends Fragment {
         addRecord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                WritePostFragment writePost = new WritePostFragment();
-                transaction.replace(R.id.FrameBase, writePost).commit();
+                Intent intent = new Intent(getActivity(), WriteRecordActivity.class);
+                startActivity(intent);
             }
         });
 

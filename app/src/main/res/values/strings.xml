@@ -9,7 +9,10 @@
     <string name="record_info">record 설명 이거는 어떻게 해야할지 모르겟는데 암튼 뭐 그런거겠지 앱설명이
         ㄱ들어가는건지 뭐가 들어가는지 사실 잘 모르겟어 아 이거 ㅓ무 길어져서 stirng에 때려박아야겟다</string>
     <string name="record_title">어쩌구 저쩌구 RECORD</string>
+    <string name="writeRecordTitle">레코드 작성</string>
+    <string name="hashtagTitle">해시태그</string>
+    <string name="monthlyTitle">월 별로 모아보기</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

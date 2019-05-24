@@ -8,16 +8,16 @@
         <item
             android:id="@+id/nav_write"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="글쓰기" />
+            android:title="@string/writeRecordTitle" />
 
         <item
             android:id="@+id/nav_hash"
             android:icon="@drawable/ic_menu_manage"
-            android:title="#해시태그" />
+            android:title="@string/hashtagTitle" />
         <item
             android:id="@+id/nav_monthView"
             android:icon="@drawable/ic_menu_camera"
-            android:title="월 별로 모아보기" />
+            android:title="@string/monthlyTitle" />
     </group>
 
 </menu>

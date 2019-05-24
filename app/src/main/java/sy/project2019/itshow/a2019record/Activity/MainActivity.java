@@ -1,13 +1,10 @@
-package sy.project2019.itshow.a2019record;
+package sy.project2019.itshow.a2019record.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,16 +14,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import sy.project2019.itshow.a2019record.Activity.WriteRecordActivity;
-import sy.project2019.itshow.a2019record.Fragment.HashtagFragment;
 import sy.project2019.itshow.a2019record.Fragment.HomeFragment;
-import sy.project2019.itshow.a2019record.Fragment.MonthlyViewFragment;
-import sy.project2019.itshow.a2019record.Fragment.WritePostFragment;
+import sy.project2019.itshow.a2019record.R;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Fragment homefrag;
-    Fragment writefrag;
     Intent intent;
 
 
@@ -38,16 +31,15 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         homefrag = new HomeFragment();
-        writefrag = new WritePostFragment();
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         //프래그먼트 시작
@@ -90,18 +82,19 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
        if (id == R.id.nav_write) {
             intent = new Intent(MainActivity.this, WriteRecordActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_hash) {
-            transaction.replace(R.id.FrameBase, new HashtagFragment()).commit();
+           intent = new Intent(MainActivity.this, HashtagActivity.class);
+           startActivity(intent);
         } else if (id == R.id.nav_monthView) {
-            transaction.replace(R.id.FrameBase, new MonthlyViewFragment()).commit();
+           intent = new Intent(MainActivity.this, MonthlyViewActivity.class);
+           startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
