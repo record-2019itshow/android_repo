@@ -3,13 +3,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/item_str"
-        android:textSize="15sp"
-        android:textColor="#000"
-        android:text="여기에 표시됩니다"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+
+    <sy.project2019.itshow.a2019record.SquareView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/item_str"
+                android:textSize="15sp"
+                android:textColor="@color/whiteCommon"
+                android:text="여기에 표시됩니다"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </sy.project2019.itshow.a2019record.SquareView>
+
 
     <!--<ImageView-->
         <!--android:id="@+id/myImages"-->

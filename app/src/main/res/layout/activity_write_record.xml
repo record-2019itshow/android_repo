@@ -5,8 +5,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Activity.WriteRecordActivity"
+    android:paddingLeft="@dimen/app_right_left_margin"
+    android:paddingRight="@dimen/app_right_left_margin"
+    android:paddingTop="@dimen/app_top_margin"
     >
     <Button
+        android:textColor="@drawable/basic_button_textcolor"
+        android:background="@drawable/basic_buttons"
         android:text="사진 가져오기"
         android:id="@+id/getImageBtn"
         android:layout_width="match_parent"
@@ -24,7 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-        android:text="입력완료"
+        android:textColor="@drawable/basic_button_textcolor"
+        android:background="@drawable/basic_buttons"
+        android:text="레코드 추가"
         android:id="@+id/postingBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -22,7 +22,6 @@ import sy.project2019.itshow.a2019record.gridItem;
 public class HomeFragment extends Fragment {
     public HomeFragment() { }
 
-    final boolean isEmpty = true; // 데이터 베이스에 RECORD가 하나도 없으면 false
     LinearLayout addRecord;
     GridView grid;
     ArrayList<RecordModel> recordArr;
@@ -37,26 +36,24 @@ public class HomeFragment extends Fragment {
         recordArr = new ArrayList<>();
         arr = new ArrayList<>();
 
-        addRecord = view.findViewById(R.id.empty_grid_add);
         grid = view.findViewById(R.id.main_grid_layout);
 
-        if(isEmpty){ // db가 비어있는 경우
-            addRecord.setVisibility(View.VISIBLE);
-            //addRecord 표시
-        }else{ // db에 값이 있는 경우
-            grid.setVisibility(View.VISIBLE);
-            gridAdapter adapter = new gridAdapter();
-            grid.setAdapter(adapter);
-            adapter.setArr(arr);
-        }
+        gridAdapter adapter = new gridAdapter();
+        grid.setAdapter(adapter);
+        arr.add(new gridItem("더미데이터")); // 맨 처음에 addRecord를 추가하기 위해서 더미 테이터를 넣음
 
-        addRecord.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), WriteRecordActivity.class);
-                startActivity(intent);
-            }
-        });
+        arr.add(new gridItem("엉덩이")); // 실제로 넣고 싶은 데이터 추가
+        arr.add(new gridItem("엉덩이???")); // 실제로 넣고 싶은 데이터 추가
+        adapter.setArr(arr);
+
+//        addRecord = view.findViewById(R.id.empty_grid_add);
+//        addRecord.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getActivity(), WriteRecordActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {

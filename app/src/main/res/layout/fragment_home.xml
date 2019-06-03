@@ -4,50 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-    <TextView
-        android:id="@+id/record_title"
-        android:textColor="#000"
-        android:textSize="18sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/record_title" />
-
-    <TextView
-        android:layout_below="@+id/record_title"
-        android:id="@+id/record_info"
-        android:text="@string/record_info"
-        android:textColor="#000"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
-        android:visibility="gone"
-        android:layout_below="@+id/record_info"
-        android:id="@+id/empty_grid_add"
-        android:background="@color/mainColor"
+        android:layout_marginTop="@dimen/app_top_margin"
+        android:layout_marginBottom="@dimen/app_top_margin"
+        android:paddingRight="@dimen/app_right_left_margin"
+        android:paddingLeft="@dimen/app_right_left_margin"
         android:orientation="vertical"
-        android:gravity="center"
-        android:layout_width="130dp"
-        android:layout_height="130dp">
+        android:id="@+id/record_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <TextView
-            android:textColor="@color/blackCommon"
-            android:text="+"
-            android:layout_width="wrap_content"
+            android:textSize="15sp"
+            android:text="@string/record_info"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-        <TextView
-            android:textColor="@color/blackCommon"
-            android:text="Add a Record"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+
     </LinearLayout>
+
+
+    <View
+        android:background="@color/gray_llll"
+        android:id="@+id/record_line"
+        android:layout_below="@+id/record_info"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
     <GridView
-        android:visibility="gone"
-        android:layout_below="@+id/record_title"
-        android:padding="5dp"
+        android:backgroundTint="@color/whiteCommon"
+        android:paddingTop="3dp"
+        android:horizontalSpacing="3dp"
+        android:verticalSpacing="3dp"
+        android:layout_below="@+id/record_line"
         android:background="@color/whiteCommon"
-        android:layout_marginTop="20dp"
         android:id="@+id/main_grid_layout"
         android:numColumns="3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
 </RelativeLayout>

@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.MonthlyViewActivity">
+    tools:context=".Activity.MonthlyViewActivity"
+    android:paddingTop="@dimen/app_top_margin"
+    android:paddingRight="@dimen/app_right_left_margin"
+    android:paddingLeft="@dimen/app_right_left_margin"
+    >
 
     <CalendarView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </CalendarView>
 
 </LinearLayout>
