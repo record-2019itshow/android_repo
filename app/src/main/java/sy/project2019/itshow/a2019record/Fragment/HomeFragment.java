@@ -1,9 +1,7 @@
 package sy.project2019.itshow.a2019record.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +11,10 @@ import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
-import sy.project2019.itshow.a2019record.Activity.WriteRecordActivity;
 import sy.project2019.itshow.a2019record.Adapter.gridAdapter;
 import sy.project2019.itshow.a2019record.Model.RecordModel;
 import sy.project2019.itshow.a2019record.R;
-import sy.project2019.itshow.a2019record.gridItem;
+import sy.project2019.itshow.a2019record.Model.gridItem;
 
 public class HomeFragment extends Fragment {
     public HomeFragment() { }

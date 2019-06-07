@@ -1,4 +1,4 @@
-package sy.project2019.itshow.a2019record;
+package sy.project2019.itshow.a2019record.Model;
 
 public class gridItem {
     String str;

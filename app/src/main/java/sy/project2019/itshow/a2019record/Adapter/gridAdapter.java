@@ -10,12 +10,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import sy.project2019.itshow.a2019record.Activity.WriteRecordActivity;
 import sy.project2019.itshow.a2019record.Model.RecordModel;
 import sy.project2019.itshow.a2019record.R;
-import sy.project2019.itshow.a2019record.gridItem;
+import sy.project2019.itshow.a2019record.Model.gridItem;
 
 public class gridAdapter extends BaseAdapter {
 
@@ -31,7 +30,7 @@ public class gridAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
+    public gridItem getItem(int position) {
         return item.get(position);
     }
 
