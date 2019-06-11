@@ -11,7 +11,4 @@
     <color name="statusBar_color">#585858</color>
     <color name="main_dark_gray">#585858</color>
 
-    <color name="today">#f3da66</color>
-    <color name="greyed_out">#000000</color>
-
 </resources>

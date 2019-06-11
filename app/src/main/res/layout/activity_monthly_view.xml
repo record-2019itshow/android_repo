@@ -3,16 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.MonthlyViewActivity"
     android:paddingTop="@dimen/app_top_margin"
     android:paddingRight="@dimen/app_right_left_margin"
-    android:paddingLeft="@dimen/app_right_left_margin"
-    >
+    android:paddingLeft="@dimen/app_right_left_margin">
 
-    <sy.project2019.itshow.a2019record.CalendarView
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:background="@color/whiteCommon"
+        android:id="@+id/monthly_calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </sy.project2019.itshow.a2019record.CalendarView>
+        android:layout_height="wrap_content"
+        app:mcv_selectionColor="@color/gray_llll"
+        />
 
 </LinearLayout>

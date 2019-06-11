@@ -7,16 +7,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_write"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/write_record_icon"
             android:title="@string/writeRecordTitle" />
 
         <item
             android:id="@+id/nav_hash"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_hashtag_icon"
             android:title="@string/hashtagTitle" />
         <item
             android:id="@+id/nav_monthView"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_calendar"
             android:title="@string/monthlyTitle" />
     </group>
 

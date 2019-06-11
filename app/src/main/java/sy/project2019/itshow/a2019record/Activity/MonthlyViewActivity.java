@@ -1,22 +1,30 @@
 package sy.project2019.itshow.a2019record.Activity;
 
 import android.app.ActionBar;
+import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
+import sy.project2019.itshow.a2019record.Decorator.OneDayDecorator;
 import sy.project2019.itshow.a2019record.R;
+import sy.project2019.itshow.a2019record.Decorator.SaturdayDecorator;
+import sy.project2019.itshow.a2019record.Decorator.SundayDecorator;
 
-public class MonthlyViewActivity extends AppCompatActivity {
+public class MonthlyViewActivity extends AppCompatActivity implements OnDateSelectedListener {
     ImageView Backbtn;
     TextView toolbarTitle;
+    MaterialCalendarView calendarView;
+    CalendarDay clickDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,42 +46,29 @@ public class MonthlyViewActivity extends AppCompatActivity {
             }
         });
         //액션바 설정 코드 끝
+
+        calendarView = findViewById(R.id.monthly_calendarView);
+        calendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator(), new OneDayDecorator(getApplicationContext()));
+        calendarView.setOnDateChangedListener(this);
+
     }
 
+    @Override
+    public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
+
+        clickDate = new CalendarDay(date.getYear(), date.getMonth()+1, date.getDay());
+
+        //selected is no value on logcat
+        Log.d("selected", "" + selected);
+        Intent intent = new Intent(MonthlyViewActivity.this, ViewMonthhashActivity.class);
+        intent.putExtra("hashDate",clickDate);
+        startActivity(intent);
+
+        if (selected == true) {
+            //It can't be show
+            Toast.makeText(this, "onClick" + clickDate, Toast.LENGTH_SHORT).show();
+        }
+    } // onDateSelected
 
 
-    // 캘린더의 날짜를 업데이트하는 함수
-//    public void updateCalendar(HashSet<Date> events)
-//    {
-//        ArrayList<Date> cells = new ArrayList<>();
-//        Calendar calendar = (Calendar)currentDate.clone();
-//
-//        // determine the cell for current month's beginning
-//        calendar.set(Calendar.DAY_OF_MONTH, 1);
-//        int monthBeginningCell = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-//
-//        // move calendar backwards to the beginning of the week
-//        calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
-//
-//        // fill cells
-//        while (cells.size() < DAYS_COUNT)
-//        {
-//            cells.add(calendar.getTime());
-//            calendar.add(Calendar.DAY_OF_MONTH, 1);
-//        }
-//
-//        // update grid
-//        grid.setAdapter(new CalendarAdapter(getContext(), cells, events));
-//
-//        // update title
-//        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-//        txtDate.setText(sdf.format(currentDate.getTime()));
-//
-//        // set header color according to current season
-//        int month = currentDate.get(Calendar.MONTH);
-//        int season = monthSeason[month];
-//        int color = rainbow[season];
-//
-//        header.setBackgroundColor(getResources().getColor(color));
-//    }
-}
+} //MonthlyViewActivity
