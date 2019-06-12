@@ -24,12 +24,14 @@
 
 
     <EditText
+        android:id="@+id/edit_content"
         android:hint="오늘의 한마디를 정리하세요"
         android:maxLines="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/edit_hashTag"
         android:hint="해시태그를 입력해주세요"
         android:maxLines="1"
         android:layout_width="match_parent"
