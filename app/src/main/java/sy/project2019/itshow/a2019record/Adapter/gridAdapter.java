@@ -12,7 +12,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import sy.project2019.itshow.a2019record.Activity.WriteRecordActivity;
-import sy.project2019.itshow.a2019record.Model.RecordModel;
+import sy.project2019.itshow.a2019record.Server.RecordModel;
 import sy.project2019.itshow.a2019record.R;
 import sy.project2019.itshow.a2019record.Model.gridItem;
 

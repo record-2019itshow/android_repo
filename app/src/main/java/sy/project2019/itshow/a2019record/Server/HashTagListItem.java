@@ -1,9 +1,18 @@
-package sy.project2019.itshow.a2019record.Model;
+package sy.project2019.itshow.a2019record.Server;
+
+import com.google.gson.annotations.SerializedName;
 
 public class HashTagListItem {
+    @SerializedName("writeDate")
     private String writeDate;
+
+    @SerializedName("imgpath")
     private String imgpath;
+
+    @SerializedName("content")
     private String content;
+
+    @SerializedName("hashTag")
     private String hashTag;
 
     public HashTagListItem(){ }

@@ -10,11 +10,13 @@
     android:paddingLeft="@dimen/app_right_left_margin">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+
+        app:mcv_arrowColor="@color/mainColor"
         android:background="@color/whiteCommon"
         android:id="@+id/monthly_calendarView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:mcv_selectionColor="@color/gray_llll"
+        app:mcv_selectionColor="@color/main_dark_gray"
         />
 
 </LinearLayout>

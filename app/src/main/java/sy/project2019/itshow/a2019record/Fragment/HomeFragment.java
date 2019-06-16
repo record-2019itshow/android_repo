@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 import sy.project2019.itshow.a2019record.Adapter.gridAdapter;
-import sy.project2019.itshow.a2019record.Model.RecordModel;
+import sy.project2019.itshow.a2019record.Server.RecordModel;
 import sy.project2019.itshow.a2019record.R;
 import sy.project2019.itshow.a2019record.Model.gridItem;
 

@@ -10,13 +10,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import sy.project2019.itshow.a2019record.Adapter.HashTagListAdapter;
 import sy.project2019.itshow.a2019record.Adapter.hashGridAdapter;
-import sy.project2019.itshow.a2019record.Model.HashTagListItem;
+import sy.project2019.itshow.a2019record.Server.HashTagListItem;
 import sy.project2019.itshow.a2019record.R;
 
 public class HashtagActivity extends AppCompatActivity {

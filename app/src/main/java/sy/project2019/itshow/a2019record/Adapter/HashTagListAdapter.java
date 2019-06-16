@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import sy.project2019.itshow.a2019record.Model.HashTagListItem;
+import sy.project2019.itshow.a2019record.Server.HashTagListItem;
 import sy.project2019.itshow.a2019record.R;
 
 

@@ -1,11 +1,25 @@
-package sy.project2019.itshow.a2019record.Model;
+package sy.project2019.itshow.a2019record.Server;
+
+import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    private String name, id, pw;
+//    @SerializedName("name")
+    private String name;
+//    @SerializedName("id")
+    private String id;
+//    @SerializedName("pw")
+    private String pw;
+
+
     public User(){}
     public User(String name, String id, String pw){
         this.name = name;
+        this.id = id;
+        this.pw = pw;
+    }
+
+    public User(String id, String pw){
         this.id = id;
         this.pw = pw;
     }

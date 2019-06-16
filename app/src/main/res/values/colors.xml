@@ -10,5 +10,6 @@
     <color name="gray_llll">#a7a7a2</color>
     <color name="statusBar_color">#585858</color>
     <color name="main_dark_gray">#585858</color>
+    <color name="lightGray">#dddddd</color>
 
 </resources>

@@ -4,18 +4,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.HashtagActivity"
-    android:paddingTop="@dimen/app_top_margin"
-    android:paddingRight="@dimen/app_right_left_margin"
-    android:paddingLeft="@dimen/app_right_left_margin"
     >
 
     <GridView
+        android:paddingRight="@dimen/app_right_left_margin"
+        android:paddingLeft="@dimen/app_right_left_margin"
+        android:paddingTop="10dp"
+        android:background="@color/lightGray"
+        android:verticalSpacing="4dp"
+        android:horizontalSpacing="4dp"
         android:numColumns="3"
         android:id="@+id/hashtag_list_grid"
         android:layout_width="match_parent"
         android:layout_height="90dp"/>
 
     <ListView
+        android:paddingRight="@dimen/app_right_left_margin"
+        android:paddingLeft="@dimen/app_right_left_margin"
         android:id="@+id/hashTag_records_listView"
         android:layout_below="@+id/hashtag_list_grid"
         android:layout_width="match_parent"
