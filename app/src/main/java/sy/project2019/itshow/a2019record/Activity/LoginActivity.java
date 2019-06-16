@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //서버와의 연결 시직
                 ServerService service = Server.getRetrofitInstance().create(ServerService.class);
-                Call<LoginUser> call = service.sigininTask(new LoginUser(usernameEditText.toString(), passwordEditText.toString()));
+                Call<LoginUser> call = service.sigininTask(new LoginUser(usernameEditText.getText().toString(), passwordEditText.getText().toString()));
 
                 call.enqueue(new Callback<LoginUser>() {
                     @Override
