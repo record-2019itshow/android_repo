@@ -37,8 +37,10 @@ public class SignUpActivity extends AppCompatActivity {
 
                 // 빈칸 및 비밀번호 확인 체크
                 if(isnull(name)) {
-                    Toast.makeText(getApplicationContext(), "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "이름을 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
+                }else if(isnull(id)){
+                    Toast.makeText(getApplicationContext(), "아이디를 입력해주세요.", Toast.LENGTH_SHORT).show();
                 }else if(isnull(pw)){
                     Toast.makeText(getApplicationContext(), "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show();
                     return;
@@ -53,28 +55,29 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 // 서버연결 코드 시작
-//                ServerService service = Server.getRetrofitInstance().create(ServerService.class);
-//                Call<List<User>> call = service.sigininTask();
-//                call.enqueue(new Callback<List<User>>() {
-//                    @Override
-//                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
-//                        if(response.code() == 200){
-//                            Toast.makeText(getApplicationContext(), "회원가입에 성공하셨습니다.", Toast.LENGTH_SHORT).show();
-//                            finish();
-//                        }else{
-//                            Toast.makeText(getApplicationContext(), "회원가입에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<List<User>> call, Throwable t) {
-//                        Toast.makeText(getApplicationContext(), "회원가입에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
-                // 서버연결 코드 끝끝
-                finish();
-           }
+                ServerService service = Server.getRetrofitInstance().create(ServerService.class);
+                Call<User> call = service.sigupTask(new User(name.getText().toString(),id.getText().toString(),
+                        pw.getText().toString()));
+                call.enqueue(new Callback<User>() {
+                    @Override
+                    public void onResponse(Call<User> call, Response<User> response) {
+                        if(response.code() == 200){
+                            Toast.makeText(getApplicationContext(), "회원가입에 성공하셨습니다." + response.message(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(getApplicationContext(), "회원가입에 실패하셨습니다." + response.message(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<User> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "회원가입에 실패하셨습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                // 서버연결 코드 끝
+            }
         });
 
     }

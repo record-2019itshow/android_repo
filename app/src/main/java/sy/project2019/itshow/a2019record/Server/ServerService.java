@@ -11,7 +11,7 @@ public interface ServerService {
     Call<LoginUser> sigininTask(@Body LoginUser user);
 
     @POST("/signup")
-    Call<List<User>> siginupTask(@Body User user);
+    Call<User> sigupTask(@Body User user);
 
 
 }
