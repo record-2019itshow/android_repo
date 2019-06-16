@@ -8,7 +8,7 @@ import retrofit2.http.POST;
 
 public interface ServerService {
     @POST("/signin")
-    Call<List<LoginUser>> sigininTask(@Body LoginUser user);
+    Call<LoginUser> sigininTask(@Body LoginUser user);
 
     @POST("/signup")
     Call<List<User>> siginupTask(@Body User user);

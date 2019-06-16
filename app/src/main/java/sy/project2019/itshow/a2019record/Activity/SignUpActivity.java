@@ -72,9 +72,9 @@ public class SignUpActivity extends AppCompatActivity {
 //                    }
 //                });
 
-                // 서버연결 코드 끝
+                // 서버연결 코드 끝끝
                 finish();
-            }
+           }
         });
 
     }

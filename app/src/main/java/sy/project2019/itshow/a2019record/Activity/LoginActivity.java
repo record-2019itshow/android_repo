@@ -10,15 +10,15 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sy.project2019.itshow.a2019record.R;
+import sy.project2019.itshow.a2019record.Server.LoginUser;
 import sy.project2019.itshow.a2019record.Server.Server;
 import sy.project2019.itshow.a2019record.Server.ServerService;
-import sy.project2019.itshow.a2019record.Server.User;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,11 +42,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 //서버와의 연결 시직
                 ServerService service = Server.getRetrofitInstance().create(ServerService.class);
-                Call<List<User>> call = service.sigininTask(new User(usernameEditText.toString(), passwordEditText.toString()));
+                Call<LoginUser> call = service.sigininTask(new LoginUser(usernameEditText.toString(), passwordEditText.toString()));
 
-                call.enqueue(new Callback<List<User>>() {
+                call.enqueue(new Callback<LoginUser>() {
                     @Override
-                    public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                    public void onResponse(Call<LoginUser> call, Response<LoginUser> response) {
                         if(response.code() == 200){
 
 //                           여기 SharedPreferences 추가
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<List<User>> call, Throwable t) {
+                    public void onFailure(Call<LoginUser> call, Throwable t) {
                         Toast.makeText(getApplicationContext(), "회원가입에 실패하셨습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
