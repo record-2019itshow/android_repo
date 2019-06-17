@@ -13,4 +13,7 @@ public interface ServerService {
     @POST("/signup")
     Call<User> sigupTask(@Body User user);
 
+    @POST("/addRecord")
+    Call<RecordModel> addRecordTask(@Body RecordModel record);
+
 }
