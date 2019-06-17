@@ -1,13 +1,10 @@
 package sy.project2019.itshow.a2019record.Server;
 
-import com.google.gson.annotations.SerializedName;
-
 public class RecordModel {
-    @SerializedName("content")
+    private String WriteDate;
     private String content;
-
-    @SerializedName("imgPath")
     private String imgPath;
+    private String[] HashTags;
 
     public String getContent() {
         return content;
