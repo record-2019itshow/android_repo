@@ -22,7 +22,6 @@ import sy.project2019.itshow.a2019record.Server.ServerService;
 
 public class LoginActivity extends AppCompatActivity {
 
-    ProgressBar loadingProgressBar;
     EditText usernameEditText;
     EditText passwordEditText;
     Button loginButton, signupButton;
@@ -34,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
-
+        final SharedPreferences.Editor editor = preferences.edit();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,25 +46,27 @@ public class LoginActivity extends AppCompatActivity {
                 call.enqueue(new Callback<LoginUser>() {
                     @Override
                     public void onResponse(Call<LoginUser> call, Response<LoginUser> response) {
-                        if(response.code() == 200){
+                        if(response.code() == 200){ // 로그인 성공
 
-//                           여기 SharedPreferences 추가
+                            editor.putString("currentID", usernameEditText.getText().toString());
+                            editor.commit();
+                            //SharedPreferences에 아이디를 저장해서 자동로그인 및 세션 없이 로그인 유지(개꼼수 ㅋ)
+
                             Toast.makeText(getApplicationContext(), "로그인 되셨습니다", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "아이디나 비밀번호를 확인해주세요" + response.message(), Toast.LENGTH_SHORT).show();
+                        }else{ // 로그인 실패
+                            Toast.makeText(getApplicationContext(), "아이디나 비밀번호를 확인해주세요", Toast.LENGTH_SHORT).show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginUser> call, Throwable t) {
-                        Toast.makeText(getApplicationContext(), "회원가입에 실패하셨습니다", Toast.LENGTH_SHORT).show();
+                        //로그인 실패2
+                        Toast.makeText(getApplicationContext(), "로그인에 실패하셨습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
 
             }
         });
@@ -83,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
         usernameEditText = findViewById(R.id.username);
         passwordEditText = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
-        loadingProgressBar = findViewById(R.id.loading);
         signupButton = findViewById(R.id.goto_signUp);
     }
 

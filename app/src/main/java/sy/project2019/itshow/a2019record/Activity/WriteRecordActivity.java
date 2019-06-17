@@ -30,7 +30,7 @@ public class WriteRecordActivity extends AppCompatActivity {
     ImageView PostImageView, Backbtn;
     TextView toolbarTitle;
     EditText content_edit, hashTag_edit;
-    File img_file;
+    File img_file; // 갤러리에서 불러온 사진 저장하는 File 객체
 
 
     @Override
