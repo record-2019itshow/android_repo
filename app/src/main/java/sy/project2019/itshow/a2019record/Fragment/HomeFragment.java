@@ -3,6 +3,7 @@ package sy.project2019.itshow.a2019record.Fragment;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,57 +44,10 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        recordArr = new ArrayList<>();
-        arr = new ArrayList<>();
-
-        pref = this.getActivity().getSharedPreferences("pref", MODE_PRIVATE);
-        String currentId = pref.getString("currentID", null);
-
-        grid = view.findViewById(R.id.main_grid_layout);
-
-        adapter = new gridAdapter();
-        grid.setAdapter(adapter);
-
-        ServerService service = Server.getRetrofitInstance().create(ServerService.class);
-        Call<List<getRecordClass>> call = service.getAllRecordTask(currentId);
-
-        call.enqueue(new Callback<List<getRecordClass>>() {
-            @Override
-            public void onResponse(Call<List<getRecordClass>> call, Response<List<getRecordClass>> response) {
-                List<getRecordClass> list = response.body();
-
-                if(list != null){
-                    for(getRecordClass reco : list){
-
-                        recordArr.add(reco);
-                        adapter.notifyDataSetChanged();
-
-                    }
-                }else{
-                    Log.e("게시글이 존재하지 않습니다", "ㅐㅐ");
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<List<getRecordClass>> call, Throwable t) {
-
-            }
-        });
-
-        arr.add(new gridItem("addRecord")); // addRecord 추가
-
-        for(int i = 0; i < recordArr.size(); i++){
-            arr.add(new gridItem(recordArr.get(i).getContent()));
-        }
-
-//        arr.add(new gridItem("엉덩이")); // 실제로 넣고 싶은 데이터 추가
-//        arr.add(new gridItem("엉덩이???")); // 실제로 넣고 싶은 데이터 추가
-        adapter.setArr(arr);
 
 
+       grid = view.findViewById(R.id.main_grid_layout);
        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -109,4 +63,63 @@ public class HomeFragment extends Fragment {
 
         return view;
     }//onCreateView
+
+
+    @Override
+    public void onResume() {
+        showItemList();
+        super.onResume();
+    }
+
+
+    public void showItemList(){
+        pref = this.getActivity().getSharedPreferences("pref", MODE_PRIVATE);
+        String currentId = pref.getString("currentID", null);
+
+        Log.e("showItemList", "호출");
+
+        recordArr = new ArrayList<>();
+        arr = new ArrayList<>();
+
+        adapter = new gridAdapter();
+        grid.setAdapter(adapter);
+
+        ServerService service = Server.getRetrofitInstance().create(ServerService.class);
+        Call<List<getRecordClass>> call = service.getAllRecordTask(currentId);
+
+        call.enqueue(new Callback<List<getRecordClass>>() {
+            @Override
+            public void onResponse(Call<List<getRecordClass>> call, Response<List<getRecordClass>> response) {
+                List<getRecordClass> list = response.body();
+                Log.e("onResponse", "호출" + list.get(0).getImg());
+
+                for(int i = 0; i < list.size(); i ++){
+                    recordArr.add(list.get(i));
+                }
+
+                arr.add(new gridItem("addRecord")); // addRecord 추가
+
+                for(int i = 0; i < recordArr.size(); i++){
+                    arr.add(new gridItem(recordArr.get(i).getImg()));
+                    adapter.notifyDataSetChanged();
+                }
+
+//        arr.add(new gridItem("엉덩이")); // 실제로 넣고 싶은 데이터 추가
+//        arr.add(new gridItem("엉덩이???")); // 실제로 넣고 싶은 데이터 추가
+                adapter.setArr(arr);
+            }
+
+            @Override
+            public void onFailure(Call<List<getRecordClass>> call, Throwable t) {
+                Log.e("onFailure", "호출");
+            }
+        });
+
+
+
+    } //showItemList
+
+
+
+
 }//class

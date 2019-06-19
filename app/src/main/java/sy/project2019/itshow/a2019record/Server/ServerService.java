@@ -7,7 +7,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -30,6 +29,8 @@ public interface ServerService {
     @POST("/addRecord")
     Call<Record> addRecordTask(@Part("id") RequestBody id, @Part("content") RequestBody content,
                                @PartMap Map<String, RequestBody> map, @Part MultipartBody.Part img, @Part("time") RequestBody time);
+
+
 
     @GET("/getAllRecord/{id}")
     Call<List<getRecordClass>> getAllRecordTask(@Path("id") String id);

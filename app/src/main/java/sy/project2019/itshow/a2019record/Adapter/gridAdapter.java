@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -63,8 +66,8 @@ public class gridAdapter extends BaseAdapter {
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.grid_item, null);
 
-                TextView textView = convertView.findViewById(R.id.item_str);
-                textView.setText(get(position));
+                ImageView img = convertView.findViewById(R.id.record_img);
+                Picasso.with(context).load("http://10.96.123.73:3000" + "/public/" + item.get(position).getStr()).into(img);
 
                 return convertView;
             }
