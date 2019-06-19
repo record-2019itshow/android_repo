@@ -24,8 +24,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -48,13 +53,15 @@ public class WriteRecordActivity extends AppCompatActivity {
     EditText content_edit, hashTag_edit;
     File img_file = null; // 갤러리에서 불러온 사진 저장하는 File 객체
     SharedPreferences preferences;
-
+    private final int MY_PERMISSIONS_REQUEST=1000;
+    String nowDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_record);
         checkPermission();
+
 
         init(); // xml 아이디와 연결
 
@@ -66,6 +73,10 @@ public class WriteRecordActivity extends AppCompatActivity {
         Backbtn = findViewById(R.id.backBtn);
 
         preferences = getSharedPreferences("pref", MODE_PRIVATE);
+
+        SimpleDateFormat mSimpleDateFormat = new SimpleDateFormat ( "yyyy-MM-dd", Locale.KOREA );
+        Date currentTime = new Date ();
+        nowDate = mSimpleDateFormat.format ( currentTime );
 
 
 
@@ -84,6 +95,7 @@ public class WriteRecordActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //db 처리 후
 
+
                 if(img_file == null){
                     Toast.makeText(getApplicationContext(), "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show();
                     return;
@@ -95,19 +107,26 @@ public class WriteRecordActivity extends AppCompatActivity {
 
 
                 String[] hashtags = hashtagsTxt.replaceAll(" ", "").split("#");
-                List<String> hashBody = new ArrayList<>();
 
+                Map<String, RequestBody> hashBody = new LinkedHashMap<>();
+                RequestBody rb;
 
-                for(int i = 0; i < hashtags.length; i++){
-//                Log.e(i + " : ", hashtags[i]);
-                  hashBody.add(hashtags[i]);
+                for(int i = 1; i < hashtags.length; i++){
+                    rb = RequestBody.create(MediaType.parse("text/plain"), hashtags[i]);
+                    hashBody.put("hashtags[" + (i-1) + "]", rb);
                 }
+
+                RequestBody idBody = RequestBody.create(MediaType.parse("id"), id);
+                RequestBody contentBody = RequestBody.create(MediaType.parse("content"), content);
+                RequestBody timeBody = RequestBody.create(MediaType.parse("time"), nowDate);
+
+                Log.e("time" , nowDate);
 
                 MultipartBody.Part body =
                 MultipartBody.Part.createFormData("img", img_file.getPath(), RequestBody.create(MediaType.parse("image/jpeg"), img_file));
 
                 ServerService service = Server.getRetrofitInstance().create(ServerService.class);
-                Call<Record> call = service.addRecordTask(id, content, hashBody, body);
+                Call<Record> call = service.addRecordTask(idBody, contentBody, hashBody, body,timeBody);
 
                 call.enqueue(new Callback<Record>() {
                     @Override
@@ -230,24 +249,59 @@ public class WriteRecordActivity extends AppCompatActivity {
     }
 
 
-    private void checkPermission() {
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 마시멜로우 버전과 같거나 이상이라면
-            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
-                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                if(shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                    Toast.makeText(this, "외부 저장소 사용을 위해 읽기/쓰기 필요", Toast.LENGTH_SHORT).show();
-                }
+    private void checkPermission(){
 
-                requestPermissions(new String[]
-                                {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},
-                        2);  //마지막 인자는 체크해야될 권한 갯수
+        if(android.os.Build.VERSION.SDK_INT  >= 23){
+            int permissionCheck = ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE);
+            ArrayList<String>  arrayPermission = new ArrayList<>();
 
-            } else {
-                //Toast.makeText(this, "권한 승인되었음", Toast.LENGTH_SHORT).show();
+            if(permissionCheck != PackageManager.PERMISSION_GRANTED){
+                arrayPermission.add(Manifest.permission.READ_EXTERNAL_STORAGE);
             }
+
+            permissionCheck = ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+            if(permissionCheck != PackageManager.PERMISSION_GRANTED){
+                arrayPermission.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            }
+
+            if(arrayPermission.size() > 0){
+                String arr[] = new String[arrayPermission.size()];
+                arr = arrayPermission.toArray(arr);
+                ActivityCompat.requestPermissions(this, arr, MY_PERMISSIONS_REQUEST);
+            }
+
         }
+
     }
 
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST: {
+                if(grantResults.length < 1){
+                    Toast.makeText(this, "권한이 없습니다", Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
+
+                for(int i = 0; i <grantResults.length; i++){
+                    if(grantResults[i] != PackageManager.PERMISSION_GRANTED){
+                        Toast.makeText(this, "권한이 거부되었습니다", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
+                }
+                Toast.makeText(this, "권한이 허용되었습니다", Toast.LENGTH_SHORT).show();
+
+            }
+            break;
+        }
+
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
 }
