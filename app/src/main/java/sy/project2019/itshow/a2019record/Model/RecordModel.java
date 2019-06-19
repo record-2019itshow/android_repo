@@ -1,7 +1,6 @@
-package sy.project2019.itshow.a2019record.Server;
+package sy.project2019.itshow.a2019record.Model;
 
 public class RecordModel {
-    private String WriteDate;
     private String content;
     private String imgPath;
     private String[] HashTags;
@@ -21,4 +20,14 @@ public class RecordModel {
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
+
+    public String[] getHashTags() {
+        return HashTags;
+    }
+
+    public void setHashTags(String[] hashTags) {
+        HashTags = hashTags;
+    }
+
+
 }

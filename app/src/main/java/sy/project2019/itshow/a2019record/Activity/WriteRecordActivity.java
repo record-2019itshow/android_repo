@@ -1,17 +1,22 @@
 package sy.project2019.itshow.a2019record.Activity;
 
+import android.Manifest;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,8 +24,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import sy.project2019.itshow.a2019record.Model.Record;
 import sy.project2019.itshow.a2019record.R;
+import sy.project2019.itshow.a2019record.Server.Server;
+import sy.project2019.itshow.a2019record.Server.ServerService;
 
 public class WriteRecordActivity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 1;
@@ -30,13 +46,15 @@ public class WriteRecordActivity extends AppCompatActivity {
     ImageView PostImageView, Backbtn;
     TextView toolbarTitle;
     EditText content_edit, hashTag_edit;
-    File img_file; // 갤러리에서 불러온 사진 저장하는 File 객체
+    File img_file = null; // 갤러리에서 불러온 사진 저장하는 File 객체
+    SharedPreferences preferences;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_record);
+        checkPermission();
 
         init(); // xml 아이디와 연결
 
@@ -46,6 +64,10 @@ public class WriteRecordActivity extends AppCompatActivity {
         getSupportActionBar().setTitle(R.string.writeRecordTitle);
         toolbarTitle = findViewById(R.id.toolbarTitle);
         Backbtn = findViewById(R.id.backBtn);
+
+        preferences = getSharedPreferences("pref", MODE_PRIVATE);
+
+
 
         toolbarTitle.setText(R.string.writeRecordTitle);
         Backbtn.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +83,52 @@ public class WriteRecordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //db 처리 후
+
+                if(img_file == null){
+                    Toast.makeText(getApplicationContext(), "이미지를 선택해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                String id = preferences.getString("currentID", null);
+                String content = content_edit.getText().toString();
+                String hashtagsTxt = hashTag_edit.getText().toString();
+
+
+                String[] hashtags = hashtagsTxt.replaceAll(" ", "").split("#");
+                List<String> hashBody = new ArrayList<>();
+
+
+                for(int i = 0; i < hashtags.length; i++){
+//                Log.e(i + " : ", hashtags[i]);
+                  hashBody.add(hashtags[i]);
+                }
+
+                MultipartBody.Part body =
+                MultipartBody.Part.createFormData("img", img_file.getPath(), RequestBody.create(MediaType.parse("image/jpeg"), img_file));
+
+                ServerService service = Server.getRetrofitInstance().create(ServerService.class);
+                Call<Record> call = service.addRecordTask(id, content, hashBody, body);
+
+                call.enqueue(new Callback<Record>() {
+                    @Override
+                    public void onResponse(Call<Record> call, Response<Record> response) {
+                        if(response.code() == 200){
+                            Toast.makeText(getApplicationContext(), "레코드가 작성되었습니다", Toast.LENGTH_SHORT).show();
+                            content_edit.setText("");
+                            hashTag_edit.setText("");
+                        }else{
+                            Toast.makeText(getApplicationContext(), "레코드 작성 실패!" + response.message(), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Record> call, Throwable t) {
+                        t.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "레코드 작성 실패!22", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                });
                 finish();
             }
         });
@@ -159,6 +227,26 @@ public class WriteRecordActivity extends AppCompatActivity {
         getImageBtn = findViewById(R.id.getImageBtn);
         content_edit = findViewById(R.id.edit_content);
         hashTag_edit = findViewById(R.id.edit_hashTag);
+    }
+
+
+    private void checkPermission() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // 마시멜로우 버전과 같거나 이상이라면
+            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                if(shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    Toast.makeText(this, "외부 저장소 사용을 위해 읽기/쓰기 필요", Toast.LENGTH_SHORT).show();
+                }
+
+                requestPermissions(new String[]
+                                {Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},
+                        2);  //마지막 인자는 체크해야될 권한 갯수
+
+            } else {
+                //Toast.makeText(this, "권한 승인되었음", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
 

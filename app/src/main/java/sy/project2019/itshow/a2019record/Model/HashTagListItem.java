@@ -1,4 +1,4 @@
-package sy.project2019.itshow.a2019record.Server;
+package sy.project2019.itshow.a2019record.Model;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -15,7 +14,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import sy.project2019.itshow.a2019record.R;
-import sy.project2019.itshow.a2019record.Server.LoginUser;
+import sy.project2019.itshow.a2019record.Model.LoginUser;
 import sy.project2019.itshow.a2019record.Server.Server;
 import sy.project2019.itshow.a2019record.Server.ServerService;
 
@@ -33,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         init();
+        preferences = getSharedPreferences("pref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
 
         loginButton.setOnClickListener(new View.OnClickListener() {

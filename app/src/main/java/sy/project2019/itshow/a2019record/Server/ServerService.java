@@ -2,9 +2,20 @@ package sy.project2019.itshow.a2019record.Server;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+import sy.project2019.itshow.a2019record.Model.LoginUser;
+import sy.project2019.itshow.a2019record.Model.Record;
+import sy.project2019.itshow.a2019record.Model.User;
+import sy.project2019.itshow.a2019record.Model.getRecordClass;
 
 public interface ServerService {
     @POST("/signin")
@@ -13,7 +24,12 @@ public interface ServerService {
     @POST("/signup")
     Call<User> sigupTask(@Body User user);
 
+    @Multipart
     @POST("/addRecord")
-    Call<RecordModel> addRecordTask(@Body RecordModel record);
+    Call<Record> addRecordTask(@Part("id") String id, @Part("content") String content,
+                               @Part("hashtags[]") List<String> hashtags, @Part MultipartBody.Part img);
+
+    @GET("/getAllRecord/{id}")
+    Call<List<getRecordClass>> getAllRecordTask(@Path("id") String id);
 
 }

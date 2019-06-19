@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import sy.project2019.itshow.a2019record.Adapter.HashTagListAdapter;
-import sy.project2019.itshow.a2019record.Server.HashTagListItem;
+import sy.project2019.itshow.a2019record.Model.HashTagListItem;
 import sy.project2019.itshow.a2019record.R;
 
 public class ViewMonthhashActivity extends AppCompatActivity {

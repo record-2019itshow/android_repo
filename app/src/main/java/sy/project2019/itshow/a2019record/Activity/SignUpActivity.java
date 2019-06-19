@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TimePicker;
 import android.widget.Toast;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,7 +13,7 @@ import retrofit2.Response;
 import sy.project2019.itshow.a2019record.R;
 import sy.project2019.itshow.a2019record.Server.Server;
 import sy.project2019.itshow.a2019record.Server.ServerService;
-import sy.project2019.itshow.a2019record.Server.User;
+import sy.project2019.itshow.a2019record.Model.User;
 
 public class SignUpActivity extends AppCompatActivity {
 

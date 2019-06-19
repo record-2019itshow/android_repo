@@ -3,7 +3,6 @@ package sy.project2019.itshow.a2019record.Model;
 public class gridItem {
     String str;
 
-
     public gridItem(String str) {
         this.str = str;
     }

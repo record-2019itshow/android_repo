@@ -1,6 +1,4 @@
-package sy.project2019.itshow.a2019record.Server;
-
-import com.google.gson.annotations.SerializedName;
+package sy.project2019.itshow.a2019record.Model;
 
 public class User {
 
