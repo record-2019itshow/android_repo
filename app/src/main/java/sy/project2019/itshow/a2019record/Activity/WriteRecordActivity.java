@@ -20,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,7 +47,9 @@ import sy.project2019.itshow.a2019record.Server.ServerService;
 public class WriteRecordActivity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 1;
     private File tempFile;
-    Button postingBtn, getImageBtn;
+    Button postingBtn;
+    LinearLayout getImageBtn;
+
     Uri photoUri;
     ImageView PostImageView, Backbtn;
     TextView toolbarTitle;
@@ -112,7 +115,7 @@ public class WriteRecordActivity extends AppCompatActivity {
                 RequestBody rb;
 
                 for(int i = 1; i < hashtags.length; i++){
-                    rb = RequestBody.create(MediaType.parse("text/plain"), hashtags[i]);
+                    rb = RequestBody.create(MediaType.parse("text/plain"), "#" + hashtags[i]);
                     hashBody.put("hashtags[" + (i-1) + "]", rb);
                 }
 
@@ -133,8 +136,7 @@ public class WriteRecordActivity extends AppCompatActivity {
                     public void onResponse(Call<Record> call, Response<Record> response) {
                         if(response.code() == 200){
                             Toast.makeText(getApplicationContext(), "레코드가 작성되었습니다", Toast.LENGTH_SHORT).show();
-                            content_edit.setText("");
-                            hashTag_edit.setText("");
+                            finish();
                         }else{
                             Toast.makeText(getApplicationContext(), "레코드 작성 실패!" + response.message(), Toast.LENGTH_SHORT).show();
                             return;
@@ -148,7 +150,6 @@ public class WriteRecordActivity extends AppCompatActivity {
                         return;
                     }
                 });
-                finish();
             }
         });
 
@@ -198,6 +199,7 @@ public class WriteRecordActivity extends AppCompatActivity {
                         file_extn.equals("gif") || file_extn.equals("png")) {
                     image_bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                     setImage(image_bitmap);
+                    getImageBtn.setVisibility(View.GONE);
                     img_file = new File(filePath);
 
                 } else {

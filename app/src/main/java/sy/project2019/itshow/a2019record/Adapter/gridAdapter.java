@@ -2,6 +2,7 @@ package sy.project2019.itshow.a2019record.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class gridAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Context context = parent.getContext();
+        context = parent.getContext();
 
             if(position == 0){
                 LayoutInflater inflater = (LayoutInflater) context
@@ -67,7 +68,9 @@ public class gridAdapter extends BaseAdapter {
                 convertView = inflater.inflate(R.layout.grid_item, null);
 
                 ImageView img = convertView.findViewById(R.id.record_img);
-                Picasso.get().load("http://10.96.123.73:3000" + "/public/" + item.get(position).getStr()).into(img);
+                img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                Log.e(item.get(position).getStr() , "이미지");
+                Picasso.get().load("http://10.96.123.73:3000/" + item.get(position).getStr()).into(img);
 
                 return convertView;
             }

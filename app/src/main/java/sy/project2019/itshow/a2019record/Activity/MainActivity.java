@@ -1,6 +1,7 @@
 package sy.project2019.itshow.a2019record.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import sy.project2019.itshow.a2019record.Fragment.HomeFragment;
 import sy.project2019.itshow.a2019record.R;
@@ -21,12 +23,14 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     Fragment homefrag;
     Intent intent;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        pref = getSharedPreferences("pref", MODE_PRIVATE);
 
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -47,6 +51,10 @@ public class MainActivity extends AppCompatActivity
         for (int i = 0; i < size; i++) {
             navigationView.getMenu().getItem(i).setCheckable(false);
         }
+
+        TextView user = findViewById(R.id.nav_username_text);
+//        user.setText(pref.getString("currentID", "not found"));
+
 
         //프래그먼트 시작
         FragmentManager fm = getSupportFragmentManager();

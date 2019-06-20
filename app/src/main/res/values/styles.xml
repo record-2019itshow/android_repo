@@ -18,4 +18,8 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/mainColor</item>
+        <item name="colorControlNormal">@color/main_dark_gray</item>
+    </style>
 </resources>

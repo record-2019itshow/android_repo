@@ -11,6 +11,7 @@
     >
 
     <ListView
+        android:dividerHeight="0px"
         android:id="@+id/monthly_record_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

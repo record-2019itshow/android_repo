@@ -54,7 +54,9 @@ public class HomeFragment extends Fragment {
 
 //               if(position == 0) return;
                Intent intent = new Intent(getActivity(), ViewRecordActivity.class);
-               intent.putExtra("recoToken", recordArr.get(position).getRecord_key());
+               intent.putExtra("recoToken", recordArr.get(position-1).getRecord_key());
+               // add 더미데이터 때문에 position 값보다 -1이어야 정상적으로 호출 가능
+
                 startActivity(intent);
            }
        });//grid.setOnclick

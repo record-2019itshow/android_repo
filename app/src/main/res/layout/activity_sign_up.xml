@@ -20,22 +20,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        style="@style/EditTheme"
         android:id="@+id/signUp_nameEdit"
         android:hint="이름"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <EditText
+        style="@style/EditTheme"
         android:id="@+id/signUp_idEdit"
         android:hint="아이디"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        style="@style/EditTheme"
         android:id="@+id/signUp_pwEdit"
         android:hint="비밀번호"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
+        style="@style/EditTheme"
         android:id="@+id/signUp_pwConfirm_Edit"
         android:hint="비밀번호 확인"
         android:layout_width="match_parent"

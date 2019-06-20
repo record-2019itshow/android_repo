@@ -64,7 +64,16 @@ public class ViewMonthhashActivity extends AppCompatActivity {
 
 
         Log.e("date", thisDay.toString());
-        String queryStr = thisDay.getYear() + "- " + thisDay.getMonth() + "- " + thisDay.getDay();
+        String month;
+        if(thisDay.getMonth() < 10){
+            month = "0"+thisDay.getMonth();
+        }else{
+            month = String.valueOf(thisDay.getMonth());
+        }
+
+        String queryStr = thisDay.getYear() + "-" + month + "-" + thisDay.getDay();
+        Log.e("date", queryStr);
+
 
         ServerService service = Server.getRetrofitInstance().create(ServerService.class);
         Call<List<getRecordClass>> call = service.getDayRecordTask(pref.getString("currentID", null), queryStr);
@@ -75,8 +84,14 @@ public class ViewMonthhashActivity extends AppCompatActivity {
                 List<getRecordClass> reco = response.body();
 
                 for(int i = 0; i < reco.size(); i++){
+                    getRecordClass recoObj = reco.get(i);
+                    String hash="";
+                    for(int j = 0; j < recoObj.getHashtags().size(); j++){
+                        hash += (recoObj.getHashtags().get(j) + " ");
+                    }
+
                     adapter.addItem(new HashTagListItem(dateStr, reco.get(i).getImg(), reco.get(i).getContent(),
-                            reco.get(i).getHashtags().toString()));
+                            hash));
                 }
                 adapter.notifyDataSetChanged();
             }

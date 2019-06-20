@@ -53,7 +53,7 @@ public class HashTagListAdapter extends BaseAdapter {
         TextView hashTag = convertView.findViewById(R.id.hashtag_record_hashtag);
         TextView content = convertView.findViewById(R.id.hashtag_record_content);
 
-        Picasso.get().load("http://10.96.123.73:3000" + "/public/" + items.get(position).getImgpath()).into(img);
+        Picasso.get().load("http://10.96.123.73:3000/"  + items.get(position).getImgpath()).into(img);
 
         writeTime.setText(items.get(position).getWriteDate());
         hashTag.setText(items.get(position).getHashTag());

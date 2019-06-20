@@ -33,9 +33,9 @@
 
     <GridView
         android:backgroundTint="@color/whiteCommon"
-        android:paddingTop="3dp"
-        android:horizontalSpacing="3dp"
-        android:verticalSpacing="3dp"
+        android:paddingTop="5dp"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
         android:layout_below="@+id/record_line"
         android:background="@color/whiteCommon"
         android:id="@+id/main_grid_layout"

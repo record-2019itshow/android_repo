@@ -9,21 +9,50 @@
     android:paddingRight="@dimen/app_right_left_margin"
     android:paddingTop="@dimen/app_top_margin"
     >
-    <Button
-        android:textColor="@drawable/basic_button_textcolor"
-        android:background="@drawable/basic_buttons"
-        android:text="사진 가져오기"
-        android:id="@+id/getImageBtn"
+    <!--<Button-->
+        <!--android:textColor="@drawable/basic_button_textcolor"-->
+        <!--android:background="@drawable/basic_buttons"-->
+        <!--android:text="갤러리에서 이미지 가져오기"-->
+        <!--android:id="@+id/getImageBtn"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ImageView
-        android:id="@+id/PostImageView"
-        android:src="@drawable/tmpimage"
-        android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp">
+        <ImageView
+            android:id="@+id/PostImageView"
+            android:src="@drawable/tmpimage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        <LinearLayout
+            android:id="@+id/getImageBtn"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@color/mainColor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="@color/blackCommon"
+                android:textSize="50sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+" />
+            <TextView
+                android:textColor="@color/blackCommon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="이미지 추가하기" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
 
 
     <EditText
+        android:theme="@style/EditTheme"
+        android:layout_marginTop="15dp"
         android:id="@+id/edit_content"
         android:hint="오늘의 한마디를 정리하세요"
         android:maxLines="3"
@@ -31,12 +60,15 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:theme="@style/EditTheme"
+        android:layout_marginTop="5dp"
         android:id="@+id/edit_hashTag"
         android:hint="해시태그를 입력해주세요"
         android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
+        android:layout_marginTop="10dp"
         android:textColor="@drawable/basic_button_textcolor"
         android:background="@drawable/basic_buttons"
         android:text="레코드 추가"
