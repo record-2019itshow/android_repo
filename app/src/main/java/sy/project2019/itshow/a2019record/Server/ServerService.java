@@ -35,4 +35,7 @@ public interface ServerService {
     @GET("/getAllRecord/{id}")
     Call<List<getRecordClass>> getAllRecordTask(@Path("id") String id);
 
+    @GET("/getDayRecord/{id}/{time}")
+    Call<List<getRecordClass>> getDayRecordTask(@Path("id") String id, @Path("time") String time);
+
 }

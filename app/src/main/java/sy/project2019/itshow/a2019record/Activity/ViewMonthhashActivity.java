@@ -2,6 +2,7 @@ package sy.project2019.itshow.a2019record.Activity;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,13 +13,22 @@ import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sy.project2019.itshow.a2019record.Adapter.HashTagListAdapter;
 import sy.project2019.itshow.a2019record.Model.HashTagListItem;
+import sy.project2019.itshow.a2019record.Model.getRecordClass;
 import sy.project2019.itshow.a2019record.R;
+import sy.project2019.itshow.a2019record.Server.Server;
+import sy.project2019.itshow.a2019record.Server.ServerService;
 
 public class ViewMonthhashActivity extends AppCompatActivity {
 
     ListView listView;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +36,7 @@ public class ViewMonthhashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_monthhash);
         Intent intent = getIntent();
         CalendarDay thisDay = intent.getParcelableExtra("hashDate");
-        String dateStr = thisDay.getYear() + "년 " + thisDay.getMonth() + "월 " + thisDay.getDay() + "일";
+        final String dateStr = thisDay.getYear() + "년 " + thisDay.getMonth() + "월 " + thisDay.getDay() + "일";
 
         //액션바 설정 코드
         TextView toolbarTitle;
@@ -46,17 +56,37 @@ public class ViewMonthhashActivity extends AppCompatActivity {
         });
         //액션바 설정 코드 끝
 
+        pref = getSharedPreferences("pref", MODE_PRIVATE);
+
         listView = findViewById(R.id.monthly_record_list);
-        HashTagListAdapter adapter = new HashTagListAdapter();
+        final HashTagListAdapter adapter = new HashTagListAdapter();
         listView.setAdapter(adapter);
-
-        adapter.addItem(new HashTagListItem(dateStr, "path", "content", "#hashtag"));
-        adapter.addItem(new HashTagListItem(dateStr, "path", "content", "#hashtag"));
-        adapter.addItem(new HashTagListItem(dateStr, "path", "content", "#hashtag"));
-
 
 
         Log.e("date", thisDay.toString());
+        String queryStr = thisDay.getYear() + "- " + thisDay.getMonth() + "- " + thisDay.getDay();
+
+        ServerService service = Server.getRetrofitInstance().create(ServerService.class);
+        Call<List<getRecordClass>> call = service.getDayRecordTask(pref.getString("currentID", null), queryStr);
+
+        call.enqueue(new Callback<List<getRecordClass>>() {
+            @Override
+            public void onResponse(Call<List<getRecordClass>> call, Response<List<getRecordClass>> response) {
+                List<getRecordClass> reco = response.body();
+
+                for(int i = 0; i < reco.size(); i++){
+                    adapter.addItem(new HashTagListItem(dateStr, reco.get(i).getImg(), reco.get(i).getContent(),
+                            reco.get(i).getHashtags().toString()));
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<getRecordClass>> call, Throwable t) {
+
+            }
+        });
 
     }
+
 }

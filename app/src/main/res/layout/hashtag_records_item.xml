@@ -12,6 +12,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/hashtag_record_img"
             android:src="@drawable/tmpimage"
             android:layout_width="200dp"
             android:layout_height="200dp" />

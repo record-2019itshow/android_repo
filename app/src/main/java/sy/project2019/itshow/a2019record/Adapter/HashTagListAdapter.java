@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -45,10 +48,12 @@ public class HashTagListAdapter extends BaseAdapter {
 
 
         }
-
+        ImageView img = convertView.findViewById(R.id.hashtag_record_img);
         TextView writeTime = convertView.findViewById(R.id.hashtag_record_writeTime);
         TextView hashTag = convertView.findViewById(R.id.hashtag_record_hashtag);
         TextView content = convertView.findViewById(R.id.hashtag_record_content);
+
+        Picasso.get().load("http://10.96.123.73:3000" + "/public/" + items.get(position).getImgpath()).into(img);
 
         writeTime.setText(items.get(position).getWriteDate());
         hashTag.setText(items.get(position).getHashTag());

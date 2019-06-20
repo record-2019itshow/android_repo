@@ -67,7 +67,7 @@ public class gridAdapter extends BaseAdapter {
                 convertView = inflater.inflate(R.layout.grid_item, null);
 
                 ImageView img = convertView.findViewById(R.id.record_img);
-                Picasso.with(context).load("http://10.96.123.73:3000" + "/public/" + item.get(position).getStr()).into(img);
+                Picasso.get().load("http://10.96.123.73:3000" + "/public/" + item.get(position).getStr()).into(img);
 
                 return convertView;
             }
