@@ -38,4 +38,7 @@ public interface ServerService {
     @GET("/getDayRecord/{id}/{time}")
     Call<List<getRecordClass>> getDayRecordTask(@Path("id") String id, @Path("time") String time);
 
+    @GET("/getSingleRecord/{id}/{record_key}")
+    Call<getRecordClass> getSingleRecordTask(@Path("id") String id, @Path("record_key") String record_key);
+
 }

@@ -54,6 +54,8 @@ public class HomeFragment extends Fragment {
 
 //               if(position == 0) return;
                Intent intent = new Intent(getActivity(), ViewRecordActivity.class);
+               Log.e(recordArr.get(position-1).getContent(), "아아아");
+               Log.e(recordArr.get(position-1).getRecord_key(), "아아아");
                intent.putExtra("recoToken", recordArr.get(position-1).getRecord_key());
                // add 더미데이터 때문에 position 값보다 -1이어야 정상적으로 호출 가능
 
@@ -106,8 +108,6 @@ public class HomeFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 }
 
-//        arr.add(new gridItem("엉덩이")); // 실제로 넣고 싶은 데이터 추가
-//        arr.add(new gridItem("엉덩이???")); // 실제로 넣고 싶은 데이터 추가
                 adapter.setArr(arr);
             }
 
