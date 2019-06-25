@@ -1,29 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.HashtagActivity"
+    android:orientation="vertical"
     >
 
-    <GridView
-        android:paddingRight="@dimen/app_right_left_margin"
-        android:paddingLeft="@dimen/app_right_left_margin"
+    <TextView
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="23dp"
         android:paddingTop="10dp"
-        android:background="@color/lightGray"
-        android:verticalSpacing="4dp"
-        android:horizontalSpacing="4dp"
-        android:numColumns="3"
-        android:id="@+id/hashtag_list_grid"
-        android:layout_width="match_parent"
-        android:layout_height="90dp"/>
+        android:paddingRight="@dimen/app_right_left_margin"
+        android:paddingBottom="5dp"
+        android:text="해시태그"
+        android:textColor="@color/blackCommon" />
 
-    <ListView
+            <GridView
+                android:layout_weight="4"
+                android:paddingRight="@dimen/app_right_left_margin"
+                android:paddingLeft="@dimen/app_right_left_margin"
+                android:paddingTop="10dp"
+                android:verticalSpacing="4dp"
+                android:horizontalSpacing="4dp"
+                android:numColumns="3"
+                android:id="@+id/hashtag_list_grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_below="@+id/hashtag_list_grid"
         android:paddingRight="@dimen/app_right_left_margin"
         android:paddingLeft="@dimen/app_right_left_margin"
-        android:id="@+id/hashTag_records_listView"
-        android:layout_below="@+id/hashtag_list_grid"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_marginTop="5dp"
+            android:textStyle="bold"
+            android:textColor="@color/mainColor"
+            android:id="@+id/this_hash"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:text=" "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ListView
+            android:id="@+id/hashTag_records_listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
-</RelativeLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

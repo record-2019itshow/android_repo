@@ -39,6 +39,7 @@ public class HashtagActivity extends AppCompatActivity {
     GridView hashTageListGrid;
     hashGridAdapter GridAdapter;
     SharedPreferences pref;
+    TextView this_hash;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class HashtagActivity extends AppCompatActivity {
         hashTageListGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                this_hash.setText(GridAdapter.getItem(position));
                 setRecoList(GridAdapter.getItem(position).replace("#","")); // 해시태그들에 대응하는 레코드들로 이루어진 리스트뷰 구성
             }
         });
@@ -72,6 +74,7 @@ public class HashtagActivity extends AppCompatActivity {
     }
 
     public void init(){
+        this_hash = findViewById(R.id.this_hash);
         hashRecordList = findViewById(R.id.hashTag_records_listView);
         hashTageListGrid = findViewById(R.id.hashtag_list_grid);
         ListAdapter = new HashTagListAdapter();
@@ -126,8 +129,12 @@ public class HashtagActivity extends AppCompatActivity {
 
                 if(response.code() ==200){
                    if(response.body() != null) {
-                       String hash = hashtag;
+
                        for(int i=0; i < response.body().size(); i++){
+                           String hash="";
+                           for(int j=0; j< response.body().get(i).getHashtags().size(); j++){
+                               hash += (response.body().get(i).getHashtags().get(j) + " ");
+                           }
                            ListAdapter.addItem(new HashTagListItem(response.body().get(i).getTime().substring(0,10), response.body().get(i).getImg(),
                                    response.body().get(i).getContent(), hash));
                            ListAdapter.notifyDataSetChanged();

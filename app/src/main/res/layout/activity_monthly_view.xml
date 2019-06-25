@@ -6,8 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.MonthlyViewActivity"
     android:paddingTop="@dimen/app_top_margin"
-    android:paddingRight="@dimen/app_right_left_margin"
-    android:paddingLeft="@dimen/app_right_left_margin">
+    android:orientation="vertical"
+    >
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
 
