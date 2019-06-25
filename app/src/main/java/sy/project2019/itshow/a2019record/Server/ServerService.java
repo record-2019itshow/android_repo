@@ -1,5 +1,6 @@
 package sy.project2019.itshow.a2019record.Server;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Path;
+import sy.project2019.itshow.a2019record.Model.HashtagsItem;
 import sy.project2019.itshow.a2019record.Model.LoginUser;
 import sy.project2019.itshow.a2019record.Model.Record;
 import sy.project2019.itshow.a2019record.Model.User;
@@ -28,7 +30,7 @@ public interface ServerService {
     @Multipart
     @POST("/addRecord")
     Call<Record> addRecordTask(@Part("id") RequestBody id, @Part("content") RequestBody content,
-                               @PartMap Map<String, RequestBody> map, @Part MultipartBody.Part img, @Part("time") RequestBody time);
+                               @PartMap Map<String, RequestBody> hash, @Part MultipartBody.Part img, @Part("time") RequestBody time);
 
 
 
@@ -41,4 +43,9 @@ public interface ServerService {
     @GET("/getSingleRecord/{id}/{record_key}")
     Call<getRecordClass> getSingleRecordTask(@Path("id") String id, @Path("record_key") String record_key);
 
+    @GET("/getAllHash/{id}")
+    Call<HashtagsItem> getAllHash(@Path("id") String id);
+
+    @GET("/getHashRecord/{id}/{hashtags}")
+    Call<List<getRecordClass>> getHashRecord(@Path("id") String id, @Path("hashtags") String hashtags);
 }

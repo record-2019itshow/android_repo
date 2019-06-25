@@ -60,8 +60,8 @@ public class ViewRecordActivity extends AppCompatActivity {
                 content.setText(record.getContent());
                 Log.e(record.getContent(), "헐헐");
                 hashTag.setText(hashStr);
-                Date.setText(record.getDate());
-                Picasso.get().load("http://10.96.123.73:3000/" + record.getImg()).into(img);
+                Date.setText(record.getTime().substring(0,10));
+                Picasso.get().load("http://3.17.203.21:3000/" + record.getImg()).into(img);
 
             }
 

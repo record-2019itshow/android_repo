@@ -1,5 +1,6 @@
 package sy.project2019.itshow.a2019record.Model;
 
+import java.util.Date;
 import java.util.List;
 
 public class getRecordClass {
@@ -8,7 +9,16 @@ public class getRecordClass {
     String img;
     String content;
     List<String> hashtags;
-    String date;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    String time;
     String record_key;
 
     public String getImg() {
@@ -35,13 +45,6 @@ public class getRecordClass {
         this.hashtags = hashtags;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
 
     public String getRecord_key() {
         return record_key;

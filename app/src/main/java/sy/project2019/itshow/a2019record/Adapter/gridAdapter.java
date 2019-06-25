@@ -23,8 +23,7 @@ import sy.project2019.itshow.a2019record.Model.gridItem;
 public class gridAdapter extends BaseAdapter {
 
     private Context context;
-    ArrayList<gridItem> item = new ArrayList<gridItem>(); // 현재 임시로넣어놓은 ARR
-    ArrayList<RecordModel> arr = new ArrayList<>(); // 실제로 사용할 어레이 리스트
+    ArrayList<gridItem> item = new ArrayList<>();
 
     public gridAdapter(){}
 
@@ -69,21 +68,22 @@ public class gridAdapter extends BaseAdapter {
 
                 ImageView img = convertView.findViewById(R.id.record_img);
                 img.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-                Log.e(item.get(position).getStr() , "이미지");
-                Picasso.get().load("http://10.96.123.73:3000/" + item.get(position).getStr()).into(img);
+                Picasso.get().load("http://3.17.203.21:3000/" + item.get(position).getStr()).into(img);
 
                 return convertView;
             }
-
-
     }
 
+    public void setItem(gridItem grid){
+        item.add(grid);
+    }
     public void setArr(ArrayList<gridItem> arr){
         this.item = arr;
     }
     public String get(int position){
         return item.get(position).getStr();
     }
+    public void delAll(){ item.clear(); }
 
 }
 

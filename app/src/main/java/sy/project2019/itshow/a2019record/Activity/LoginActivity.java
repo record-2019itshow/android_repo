@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(response.code() == 200){ // 로그인 성공
 
                             editor.putString("currentID", usernameEditText.getText().toString());
-                            editor.commit();
+                            editor.apply();
                             //SharedPreferences에 아이디를 저장해서 자동로그인 및 세션 없이 로그인 유지(개꼼수 ㅋ)
 
                             Toast.makeText(getApplicationContext(), "로그인 되셨습니다", Toast.LENGTH_SHORT).show();

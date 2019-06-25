@@ -46,8 +46,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
        grid = view.findViewById(R.id.main_grid_layout);
+
        grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
            @Override
            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -64,15 +64,15 @@ public class HomeFragment extends Fragment {
        });//grid.setOnclick
 
 
-
         return view;
     }//onCreateView
 
 
     @Override
-    public void onResume() {
-        showItemList();
+    public void onResume(){
         super.onResume();
+        showItemList();
+
     }
 
 
@@ -81,12 +81,11 @@ public class HomeFragment extends Fragment {
         String currentId = pref.getString("currentID", null);
 
         Log.e("showItemList", "호출");
-
+//        adapter.delAll();
+//        adapter.notifyDataSetChanged();
+        adapter = new gridAdapter();
         recordArr = new ArrayList<>();
         arr = new ArrayList<>();
-
-        adapter = new gridAdapter();
-        grid.setAdapter(adapter);
 
         ServerService service = Server.getRetrofitInstance().create(ServerService.class);
         Call<List<getRecordClass>> call = service.getAllRecordTask(currentId);
@@ -97,18 +96,15 @@ public class HomeFragment extends Fragment {
                 List<getRecordClass> list = response.body();
                 Log.e("onResponse", "호출" + list.get(0).getImg());
 
-                for(int i = 0; i < list.size(); i ++){
-                    recordArr.add(list.get(i));
-                }
+                recordArr.addAll(list);
 
-                arr.add(new gridItem("addRecord")); // addRecord 추가
+                adapter.setItem(new gridItem("addRecord"));
 
                 for(int i = 0; i < recordArr.size(); i++){
-                    arr.add(new gridItem(recordArr.get(i).getImg()));
-                    adapter.notifyDataSetChanged();
+                    adapter.setItem(new gridItem(recordArr.get(i).getImg()));
                 }
-
-                adapter.setArr(arr);
+                adapter.notifyDataSetChanged();
+                grid.setAdapter(adapter);
             }
 
             @Override

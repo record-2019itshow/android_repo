@@ -9,7 +9,6 @@ public class User {
 //    @SerializedName("pw")
     private String pw;
 
-
     public User(){}
     public User(String name, String id, String pw){
         this.name = name;

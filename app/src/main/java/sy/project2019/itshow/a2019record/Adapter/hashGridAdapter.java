@@ -35,13 +35,12 @@ public class hashGridAdapter  extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(position == 0){
+        if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) parent.getContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.hashtag_list_griditem, null);
         }
         TextView hash = convertView.findViewById(R.id.hashtag_grid_name);
-
         hash.setText(items.get(position));
 
         return convertView;
@@ -50,5 +49,8 @@ public class hashGridAdapter  extends BaseAdapter {
 
     public void setArr(ArrayList<String> arr){
         this.items = arr;
+    }
+    public  void setItem(String item){
+        items.add(item);
     }
 }

@@ -1,6 +1,7 @@
 package sy.project2019.itshow.a2019record.Activity;
 
 import android.app.ActionBar;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,14 +10,25 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import sy.project2019.itshow.a2019record.Adapter.HashTagListAdapter;
 import sy.project2019.itshow.a2019record.Adapter.hashGridAdapter;
 import sy.project2019.itshow.a2019record.Model.HashTagListItem;
+import sy.project2019.itshow.a2019record.Model.HashtagsItem;
+import sy.project2019.itshow.a2019record.Model.getRecordClass;
 import sy.project2019.itshow.a2019record.R;
+import sy.project2019.itshow.a2019record.Server.Server;
+import sy.project2019.itshow.a2019record.Server.ServerService;
 
 public class HashtagActivity extends AppCompatActivity {
 
@@ -26,7 +38,7 @@ public class HashtagActivity extends AppCompatActivity {
     ListView hashRecordList;
     GridView hashTageListGrid;
     hashGridAdapter GridAdapter;
-    ArrayList<String> hashItem;
+    SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +59,13 @@ public class HashtagActivity extends AppCompatActivity {
         });
         //액션바 설정 코드 끝
         init();   // 각 요소들 초기화
-        setHashGrid(); // 해시태그들이 담긴 그리드뷰 구성
 
         hashTageListGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                setRecoList(GridAdapter.getItem(position)); // 해시태그들에 대응하는 레코드들로 이루어진 리스트뷰 구성
+                setRecoList(GridAdapter.getItem(position).replace("#","")); // 해시태그들에 대응하는 레코드들로 이루어진 리스트뷰 구성
             }
         });
-
 
 
 
@@ -66,28 +76,87 @@ public class HashtagActivity extends AppCompatActivity {
         hashTageListGrid = findViewById(R.id.hashtag_list_grid);
         ListAdapter = new HashTagListAdapter();
         GridAdapter = new hashGridAdapter();
-        hashItem = new ArrayList<>();
         hashRecordList.setAdapter(ListAdapter);
+        setHashGrid(); // 해시태그들이 담긴 그리드뷰 구성
     }
 
     public void setHashGrid(){
-        hashItem.add("#원대");
-        hashItem.add("#설원대..");
-        hashItem.add("#문이기");
-        hashItem.add("#뭘 더 써야해");
+        pref = getSharedPreferences("pref", MODE_PRIVATE);
 
-        GridAdapter.setArr(hashItem);
-        hashTageListGrid.setAdapter(GridAdapter);
+
+        ServerService service = Server.getRetrofitInstance().create(ServerService.class);
+        Call<HashtagsItem> call = service.getAllHash(pref.getString("currentID", null));
+
+        call.enqueue(new Callback<HashtagsItem>() {
+            @Override
+            public void onResponse(Call<HashtagsItem> call, Response<HashtagsItem> response) {
+                Toast.makeText(getApplicationContext(),  response.body().getResult().get(0), Toast.LENGTH_SHORT).show();
+//                hashLists.addAll(response.body().getResult()) ;
+
+                if(response.body().getResult().size()>0){
+                    for(int i = 0; i < response.body().getResult().size(); i++){
+                        GridAdapter.setItem(response.body().getResult().get(i));
+                        GridAdapter.notifyDataSetChanged();
+                    }
+                    hashTageListGrid.setAdapter(GridAdapter);
+                }else{
+                    Toast.makeText(getApplicationContext(), "해시태그가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<HashtagsItem> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("error",t.getMessage());
+            }
+        });
 
     }
 
-    public void setRecoList(String hashtag){
+    public void setRecoList(final String hashtag){
         ListAdapter.delItem();
-        Log.e("리스트 구성", "함수 안으로 들어오기는 햇는데");
-        ListAdapter.addItem(new HashTagListItem("2019년 3월 20일","mm","문익아 생일 축하해",hashtag));
-        ListAdapter.addItem(new HashTagListItem("2019년 4월 28일","mm","언데 생일 축하해",hashtag));
 
-        ListAdapter.notifyDataSetChanged();
+        ServerService service = Server.getRetrofitInstance().create(ServerService.class);
+        Call<List<getRecordClass>> call = service.getHashRecord(pref.getString("currentID", null), hashtag);
+
+        call.enqueue(new Callback<List<getRecordClass>>() {
+            @Override
+            public void onResponse(Call<List<getRecordClass>> call, Response<List<getRecordClass>> response) {
+
+                if(response.code() ==200){
+                   if(response.body() != null) {
+                       String hash = hashtag;
+                       for(int i=0; i < response.body().size(); i++){
+                           ListAdapter.addItem(new HashTagListItem(response.body().get(i).getTime().substring(0,10), response.body().get(i).getImg(),
+                                   response.body().get(i).getContent(), hash));
+                           ListAdapter.notifyDataSetChanged();
+                       }
+                   }else{
+                       Toast.makeText(getApplicationContext(), "레코드가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
+                       return;
+                   }
+                }else{
+                    Toast.makeText(getApplicationContext(), "에러가 발생했습니다", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<getRecordClass>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "서버와의 연결이 불안정합니다.", Toast.LENGTH_SHORT).show();
+                Log.e("서버", t.toString());
+            }
+        });
+
+//        Log.e("리스트 구성", "함수 안으로 들어오기는 햇는데");
+
+//        for(int i=0; i < records.size(); i++){
+//            ListAdapter.addItem(new HashTagListItem(records.get(i).getDate(), records.get(i).getImg(), records.get(i).getContent(), hashtag));
+//            ListAdapter.notifyDataSetChanged();
+//        }
+
     }
+
 
 }

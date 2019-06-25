@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity
 
         pref = getSharedPreferences("pref", MODE_PRIVATE);
 
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
