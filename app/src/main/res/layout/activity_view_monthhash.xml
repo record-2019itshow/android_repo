@@ -11,9 +11,13 @@
     >
 
     <ListView
-        android:dividerHeight="0px"
+        android:paddingBottom="15dp"
+        android:focusable="false"
+        android:clickable="false"
+        android:divider="@null"
         android:id="@+id/monthly_record_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:dividerHeight="5dp" />
 
 </LinearLayout>

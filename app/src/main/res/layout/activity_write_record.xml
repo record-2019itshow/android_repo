@@ -63,7 +63,7 @@
         android:theme="@style/EditTheme"
         android:layout_marginTop="5dp"
         android:id="@+id/edit_hashTag"
-        android:hint="해시태그를 입력해주세요"
+        android:hint="해시태그를 입력해주세요(#세미나 #교육)"
         android:maxLines="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

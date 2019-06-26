@@ -69,7 +69,7 @@ public class ViewRecordActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<getRecordClass> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "이러지마 우리 행복했잖아", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "서버가 불안정합니다.", Toast.LENGTH_SHORT).show();
                 Log.e("무슨 오류일까용ㅎ", t.toString());
             }
         });

@@ -50,6 +50,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <ListView
+            android:paddingBottom="15dp"
+            android:focusable="false"
+            android:clickable="false"
+            android:dividerHeight="5dp"
+            android:divider="@null"
             android:id="@+id/hashTag_records_listView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>

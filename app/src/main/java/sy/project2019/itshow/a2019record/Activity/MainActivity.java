@@ -2,6 +2,9 @@ package sy.project2019.itshow.a2019record.Activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import sy.project2019.itshow.a2019record.Fragment.HomeFragment;
@@ -24,6 +29,8 @@ public class MainActivity extends AppCompatActivity
     Fragment homefrag;
     Intent intent;
     SharedPreferences pref;
+    TextView userName;
+    ImageView profilePic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +38,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         pref = getSharedPreferences("pref", MODE_PRIVATE);
+        String user = pref.getString("currentID", "not found");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -51,8 +59,22 @@ public class MainActivity extends AppCompatActivity
             navigationView.getMenu().getItem(i).setCheckable(false);
         }
 
-        TextView user = findViewById(R.id.nav_username_text);
-//        user.setText(pref.getString("currentID", "not found"));
+        View header = navigationView.getHeaderView(0);
+
+
+        profilePic = header.findViewById(R.id.imageView);
+        profilePic.setImageResource(R.drawable.profile);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            profilePic.setBackground(new ShapeDrawable(new OvalShape()));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                profilePic.setClipToOutline(true);
+            }
+        }
+        profilePic.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+        userName = header.findViewById(R.id.nav_username_text);
+        userName.setText(user + " 님, 환영합니다");
 
 
         //프래그먼트 시작

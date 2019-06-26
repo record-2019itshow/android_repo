@@ -93,8 +93,6 @@ public class HashtagActivity extends AppCompatActivity {
         call.enqueue(new Callback<HashtagsItem>() {
             @Override
             public void onResponse(Call<HashtagsItem> call, Response<HashtagsItem> response) {
-                Toast.makeText(getApplicationContext(),  response.body().getResult().get(0), Toast.LENGTH_SHORT).show();
-//                hashLists.addAll(response.body().getResult()) ;
 
                 if(response.body().getResult().size()>0){
                     for(int i = 0; i < response.body().getResult().size(); i++){

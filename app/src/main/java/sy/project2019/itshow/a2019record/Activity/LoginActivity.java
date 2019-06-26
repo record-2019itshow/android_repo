@@ -36,6 +36,12 @@ public class LoginActivity extends AppCompatActivity {
         preferences = getSharedPreferences("pref", MODE_PRIVATE);
         final SharedPreferences.Editor editor = preferences.edit();
 
+        if(preferences.getString("currentID", null) != null){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

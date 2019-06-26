@@ -100,16 +100,16 @@ public class HomeFragment extends Fragment {
                 if(list == null){
                     Toast.makeText(getActivity().getApplicationContext(), "레코드가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
                     return;
-                }
-                Log.e("onResponse", "호출" + list.get(0).getImg());
+                }else{
+                    recordArr.addAll(list);
 
-                recordArr.addAll(list);
-
-                for(int i = 0; i < recordArr.size(); i++){
-                    adapter.setItem(new gridItem(recordArr.get(i).getImg()));
+                    for(int i = 0; i < recordArr.size(); i++){
+                        adapter.setItem(new gridItem(recordArr.get(i).getImg()));
+                    }
+                    adapter.notifyDataSetChanged();
+                    grid.setAdapter(adapter);
                 }
-                adapter.notifyDataSetChanged();
-                grid.setAdapter(adapter);
+
             }
 
             @Override

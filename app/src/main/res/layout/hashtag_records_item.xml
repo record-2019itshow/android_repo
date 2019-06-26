@@ -21,7 +21,6 @@
             android:textSize="17sp"
             android:textColor="@color/blackCommon"
             android:id="@+id/hashtag_record_writeTime"
-            android:text="작성날짜"
             android:layout_width="230dp"
             android:gravity="center"
             android:layout_height="wrap_content" />
@@ -29,7 +28,6 @@
             android:textSize="17sp"
             android:layout_margin="10dp"
             android:textColor="@color/blackCommon"
-            android:text="한줄"
             android:id="@+id/hashtag_record_content"
             android:layout_width="230dp"
             android:gravity="center"
@@ -39,7 +37,6 @@
             android:textSize="17sp"
             android:textColor="@color/blackCommon"
             android:id="@+id/hashtag_record_hashtag"
-            android:text="#해시태그"
             android:layout_width="230dp"
             android:gravity="center"
             android:layout_height="wrap_content" />

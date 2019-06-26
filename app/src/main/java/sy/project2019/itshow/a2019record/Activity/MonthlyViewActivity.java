@@ -81,25 +81,25 @@ public class MonthlyViewActivity extends AppCompatActivity implements OnDateSele
             @Override
             public void onResponse(Call<List<getRecordClass>> call, Response<List<getRecordClass>> response) {
 
-                if(response.code() != 200 || response.body() == null) {
+                if(response.code() != 200 || response.body().size() < 1) {
                     Toast.makeText(getApplicationContext(), "레코드가 존재하지 않습니다", Toast.LENGTH_SHORT).show();
                     calendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator(), new OneDayDecorator(getApplicationContext()));
-                    return;
-                }
-                for(int i= 0; i < response.body().size(); i++){
-                    int year = Integer.parseInt(response.body().get(i).getTime().substring(0,4));
-                    int month = Integer.parseInt(response.body().get(i).getTime().substring(5,7));
-                    int day = Integer.parseInt(response.body().get(i).getTime().substring(8,10));
-                    Log.e("year",year + "" );
-                    Log.e("month",month + "" );
-                    Log.e("day",day + "" );
-                    CalendarDay c = CalendarDay.from(year, month-1, day);
-                    recordDays.add(c);
-                }
-                Log.e("size", recordDays.size() + " " +recordDays.get(0));
-                calendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator(), new OneDayDecorator(getApplicationContext()),
-                        new RecordDayDecorator(recordDays, MonthlyViewActivity.this));
 
+                }else{
+                    for(int i= 0; i < response.body().size(); i++){
+                        int year = Integer.parseInt(response.body().get(i).getTime().substring(0,4));
+                        int month = Integer.parseInt(response.body().get(i).getTime().substring(5,7));
+                        int day = Integer.parseInt(response.body().get(i).getTime().substring(8,10));
+                        Log.e("year",year + "" );
+                        Log.e("month",month + "" );
+                        Log.e("day",day + "" );
+                        CalendarDay c = CalendarDay.from(year, month-1, day);
+                        recordDays.add(c);
+                    }
+                    Log.e("size", recordDays.size() + " " +recordDays.get(0));
+                    calendarView.addDecorators(new SundayDecorator(), new SaturdayDecorator(), new OneDayDecorator(getApplicationContext()),
+                            new RecordDayDecorator(recordDays, MonthlyViewActivity.this));
+                }
             }
 
             @Override
@@ -116,17 +116,11 @@ public class MonthlyViewActivity extends AppCompatActivity implements OnDateSele
     public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
         clickDate = new CalendarDay(date.getYear(), date.getMonth()+1, date.getDay());
-
         //selected is no value on logcat
         Log.d("selected", "" + selected);
         Intent intent = new Intent(MonthlyViewActivity.this, ViewMonthhashActivity.class);
         intent.putExtra("hashDate",clickDate);
         startActivity(intent);
-
-        if (selected == true) {
-            //It can't be show
-            Toast.makeText(this, "onClick" + clickDate, Toast.LENGTH_SHORT).show();
-        }
     } // onDateSelected
 
 
